@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Set Interval Platzi</title>
+
+	<style>
+		div{
+			width: 500px;
+			height: 150px;
+			background: #000;
+			margin: solid 2px #FFF;
+			color: #FFF;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		h1, h2{
+			padding-top: 50px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<h1 id="timer">La Próxima clase inicia en: 5</h1>
+	</div>
+
+	<script>
+		let timer = document.getElementById("timer")
+		let cont = 5
+
+		const interval = setInterval( () => {
+			cont--
+
+			if(cont == 0)
+			{
+				clearInterval(interval)
+				timer.textContent = `Iniciando Clase`	
+			}
+			else
+			{
+				timer.textContent = `La Próxima clase inicia en: ${cont}`
+			}
+		}, 1000)
+	</script>
+	
+</body>
+</html>

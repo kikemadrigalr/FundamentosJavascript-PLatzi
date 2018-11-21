@@ -1,0 +1,73 @@
+<!-- agenda.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CallBcks - Agenda</title>
+</head>
+<body>
+	<h1 id="agenda">Estoy Despertando</h1>
+<script>
+	const DESPERTAR = 3000;
+	const DUCHARME = 2000;
+	const VESTIRME = 2000;
+	const DESAYUNAR = 3000;
+	const PLATZI = 5000;
+	const agenda = document.getElementById('agenda');
+
+
+/*despues que se ejecute esta funcion debo ejecutar otra cosa, por lo tanto esta devuelve una promesa*/
+function despertar(){
+	return new Promise( (resolve, reject) => {
+		setTimeout( () => {
+			resolve('Ahorame estoy duchando!..')
+		},DESPERTAR)
+	}) 
+}
+
+function ducha(message){
+	agenda.textContent = message;
+	return new Promise( (resolve, reject) => {
+		setTimeout( () => {
+			resolve('Me estoy Vistiendo!..')
+		},DUCHARME)
+	}) 
+}
+
+function vestirme(message){
+	agenda.textContent = message;
+	return new Promise( (resolve, reject) => {
+		setTimeout( () => {
+			//resolve('Ahora Estoy desayunando!..')
+			reject('NO HAY COMIDA')
+		},VESTIRME)
+	}) 
+}
+
+function desayunar(message){
+	agenda.textContent = message;
+	return new Promise( (resolve, reject) => {
+		setTimeout( () => {
+			//reject('NO HAY COMIDA')
+			resolve('Estudiando en PLatzi!..')
+		},VESTIRME)
+	}) 
+}
+
+function error(message){
+	agenda.style.color = 'red';
+	agenda.textContent = message;
+}
+
+despertar()
+.then(ducha)
+.then(vestirme)
+.then(desayunar)
+.catch(error)
+
+	
+</script>
+	
+</body>
+</html>

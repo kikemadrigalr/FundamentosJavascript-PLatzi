@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Set Interval</title>
+	<style>
+		div{
+			width: 500px;
+			height: 150px;
+			background: #000;
+			margin: solid 2px #FFF;
+			color: #FFF;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		h1, h2{
+			padding-top: 50px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<h1 id="timer">Han Pasado 0 Segundos</h1>
+	</div>
+
+	<button id="cancelButton" >Cancel</button>
+
+	<button id="play">Start</button>
+	
+	<script>
+		let timer = document.getElementById("timer")
+		let cont = 0
+
+	//	let timer2 = document.getElementById("timer2")
+		//let cont2 = 5
+
+		play.addEventListener('click',)
+
+		const interval = setInterval( contador() => {
+			cont++
+			//cont2--
+
+			if(cont == 1)
+			{
+				timer.textContent = `Ha Pasado ${cont} Segundo`
+			}
+			else
+			{
+				timer.textContent = `Han Pasado ${cont} Segundos`
+			}
+
+			//timer2.textContent = `La Próxima clase inicia en: ${cont2}`
+
+		}, 1000)
+
+		cancelButton.addEventListener('click', () => {
+			clearInterval(interval)
+		})
+
+	</script>
+</body>
+</html>

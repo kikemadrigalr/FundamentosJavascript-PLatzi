@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Agenda</title>
+
+	<style>
+		.contenedor{
+			width: 1024px;
+			height: 1024px;
+			margin: auto;
+		}
+		#inf{
+			width: 100%;
+			height: 100px;
+			margin: auto;
+			background-color: black;
+			color: white;
+			text-align: center;
+		}
+
+		#image{
+			width: 100%;
+			text-align: center;
+			margin: auto;
+		}
+
+		#btn{
+			width: 1024px;
+			height: 100px;
+			text-align: center;
+			margin: auto;
+			background-color: black;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div class="contenedor">
+		<div id="inf">
+			<h1 id="hora">6:00 Am</h1>
+			<h2 id="agenda">Hora de Despertar</h2>
+		</div>
+		<div id="image">
+			<img id="img" src="despertar.jpg" alt="" width="500" height="300">
+		</div>
+		<div id="btn">
+			<h3 id="pregunta">Despertar?</h3>
+			<button id="boton1" value="si">Si</button>
+			<button id="boton2" value="no">No</button>
+		</div>
+	</div>
+
+	<script>
+		const INICIO = 2000
+		const DESPERTAR = 3000;
+		const DUCHARME = 2000;
+		const VESTIRME = 2000;
+		const DESAYUNAR = 3000;
+		const PLATZI = 5000;
+
+		const hora = document.getElementById('hora');
+		const agenda = document.getElementById('agenda');
+		const pregunta = document.getElementById('pregunta')
+		const botonSi = document.getElementById('boton1');
+		const botonNo = document.getElementById('boton2');
+
+		const image = document.getElementById('img');
+
+		function mostrarBotones(){
+			botonSi.setAttribute("style","visibility:visible");;
+			botonNo.setAttribute("style","visibility:visible");;
+		}
+
+		function ocultarBotones(){
+			botonSi.setAttribute("style","visibility:hidden");
+			botonNo.setAttribute("style","visibility:hidden");
+		};
+
+
+		function dormir(){
+			image.src = 'Dormir.gif'
+			hora.textContent = '';
+			pregunta.textContent = '';
+
+			ocultarBotones();
+		};
+
+		function iniciarDia(message) {
+				return new Promise((resolve, reject) => {
+					setTimeout(() => {
+						botonSi.addEventListener('click', () => {
+							resolve("Estoy despertando...");
+						});
+
+						botonNo.addEventListener('click', () => {
+							reject("No quiero despertar");
+						});
+					}, INICIO);
+				});
+			}
+
+		function despertar(message){
+			agenda.textContent = message;
+			return new Promise( (resolve, reject) => {
+				setTimeout( () => {
+					resolve('Ahora me estoy Duchando')
+				})
+			},DESPERTAR)
+		};
+
+		function ducha(message){
+			hora.textContent = '6:15 Am';
+			agenda.textContent = message;
+			image.src = 'ducha.jpg'
+			pregunta.textContent = '';
+			ocultarBotones();
+
+			return new Promise( (resolve, reject) => {
+				setTimeout( () => {
+					resolve('Me estoy Vistiendo!..')
+				},DUCHARME)
+			}) 
+		};
+
+		function vestirme(message){
+			hora.textContent = '6:30 Am';
+			agenda.textContent = message;
+			image.src = 'vestir.jpg'
+
+			return new Promise( (resolve, reject) => {
+				setTimeout( () => {
+					pregunta.textContent = 'Estoy Listo?'
+					mostrarBotones();
+
+					botonSi.addEventListener('click', () => {
+							resolve("Ahora a desayunar");
+						});
+
+					botonNo.addEventListener('click', () => {
+						reject("Debo apurarme")
+					})
+				
+				},VESTIRME)
+			}) 
+		};
+
+		function desayunar(message){
+			hora.textContent = '6:50 Am';
+			agenda.textContent = message;
+			image.src = 'desayuno.jpg'
+			pregunta.textContent = '';
+			ocultarBotones();
+			
+			return new Promise( (resolve, reject) =>{
+				setTimeout( () =>{
+					pregunta.textContent = 'Hay Comida en la nevera?';
+					mostrarBotones();
+
+					botonSi.addEventListener('click', () => {
+							resolve("Estoy Comiendo");
+						});
+
+					botonNo.addEventListener('click', () => {
+						reject("Debo comprar comida")
+					})
+
+				}, DESAYUNAR)
+			})
+				
+		};
+
+		function comiendo(message){
+			hora.textContent = '6:50 Am';
+			agenda.textContent = message;
+			image.src = 'desayuno.jpg'
+			pregunta.textContent = '';
+			ocultarBotones();
+
+			return new Promise( (resolve, reject) =>{
+				setTimeout( () =>{
+					pregunta.textContent = 'Acabe de Comer?';
+					mostrarBotones();
+
+					botonSi.addEventListener('click', () => {
+							resolve("Ahora A estudiar con Platzi");
+						});
+
+					botonNo.addEventListener('click', () => {
+						reject("No Puedo Estudiar")
+					})
+
+				}, DESAYUNAR)
+			})
+		}
+
+		function estudiarPlatzi(message){
+			hora.textContent = '7.30 Am';
+			agenda.textContent = message;
+			image.src = 'logoPlatzi.png'
+			pregunta.textContent = ''
+			ocultarBotones();
+
+			return new Promise( (resolve, reject) =>{
+				setTimeout( () =>{
+					pregunta.textContent = 'Estoy en venezuela. ¿Hay Internet?';
+					mostrarBotones();
+
+					botonSi.addEventListener('click', () => {
+							resolve("Sí!! Seguire mi curso con Leonidas Esteban");
+						});
+
+					botonNo.addEventListener('click', () => {
+						reject("Oh! ..No Puedo Estudiar")
+					})
+				},PLATZI)
+			})
+		};
+
+		function platzi(message){
+			agenda.textContent = message;
+			image.src = 'curso.jpg';
+			ocultarBotones();
+			pregunta.textContent = '';
+		}
+
+		function error(message){
+			agenda.style.color = 'red';
+			agenda.textContent = message;
+		};
+
+		iniciarDia()
+			.then(despertar)
+			.then(ducha)
+			.then(vestirme)
+			.then(desayunar)
+			.then(comiendo)
+			.then(estudiarPlatzi)
+			.then(platzi)
+			.catch(error)
+
+	</script>	
+</body>
+</html>
